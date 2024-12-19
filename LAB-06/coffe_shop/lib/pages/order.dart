@@ -1,16 +1,29 @@
 import 'package:coffe_shop/pages/delivery.dart';
+import 'package:coffe_shop/utilis/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
 class Order extends StatefulWidget {
-  const Order({super.key});
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final String price;
+
+  const Order({
+    Key? key,
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+    required this.price,
+  }) : super(key: key);
 
   @override
   State<Order> createState() => _OrderState();
 }
 
 class _OrderState extends State<Order> {
+  String selectedOption = "Deliver";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,37 +63,76 @@ class _OrderState extends State<Order> {
                     borderRadius: BorderRadius.circular(14)),
                 child: Row(
                   children: [
-                    Container(
-                      width: 153.5,
-                      height: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color(0xffC67C4E),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        "Deliver",
-                        style: GoogleFonts.sora(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                    // First button
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedOption =
+                                "Deliver"; // Set "Deliver" as selected
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: selectedOption == "Deliver"
+                                ? Color(0xffC67C4E)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: selectedOption == "Deliver"
+                                  ? Color(0xffC67C4E)
+                                  : Colors.grey,
+                            ),
+                          ),
+                          child: Text(
+                            "Deliver",
+                            style: GoogleFonts.sora(
+                              color: selectedOption == "Deliver"
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      width: 153.5,
-                      height: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color(0xfffff),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        "Pick Up",
-                        style: GoogleFonts.sora(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                    const SizedBox(width: 10), // Space between buttons
+                    // Second button
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedOption =
+                                "Pick Up"; // Set "Pick Up" as selected
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: selectedOption == "Pick Up"
+                                ? Color(0xffC67C4E)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: selectedOption == "Pick Up"
+                                  ? Color(0xffC67C4E)
+                                  : Colors.grey,
+                            ),
+                          ),
+                          child: Text(
+                            "Pick Up",
+                            style: GoogleFonts.sora(
+                              color: selectedOption == "Pick Up"
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -227,7 +279,7 @@ class _OrderState extends State<Order> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Image.asset(
-                            "assets/1.png",
+                            widget.imageUrl,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -238,7 +290,7 @@ class _OrderState extends State<Order> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Cafe Mocha",
+                              widget.title,
                               style: GoogleFonts.sora(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -249,7 +301,7 @@ class _OrderState extends State<Order> {
                               height: 4,
                             ),
                             Text(
-                              "Deep Foam",
+                              widget.subtitle,
                               style: GoogleFonts.sora(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -260,62 +312,7 @@ class _OrderState extends State<Order> {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 28,
-                          height: 28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Color(0xffEAEAEA))),
-                          child: Text(
-                            "-",
-                            style: GoogleFonts.sora(
-                              color: Color(0xffAAADB0),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          "1",
-                          style: GoogleFonts.sora(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Container(
-                          width: 28,
-                          height: 28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              color: const Color(0xffEAEAEA),
-                            ),
-                          ),
-                          child: Text(
-                            "+",
-                            style: GoogleFonts.sora(
-                              color: const Color(0xffAAADB0),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    )
+                    CounterWidget(),
                   ],
                 ),
               ),
@@ -401,7 +398,7 @@ class _OrderState extends State<Order> {
                           ),
                         ),
                         Text(
-                          "\$ 4.53",
+                          widget.price,
                           style: GoogleFonts.sora(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -516,7 +513,7 @@ class _OrderState extends State<Order> {
                                           width: 10,
                                         ),
                                         Text(
-                                          "\$ 5.53",
+                                          widget.price,
                                           style: GoogleFonts.sora(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,

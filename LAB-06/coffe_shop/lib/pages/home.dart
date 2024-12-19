@@ -78,6 +78,7 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         height: 52,
                         child: TextFormField(
+                          style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xff313131),

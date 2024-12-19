@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:coffe_shop/pages/detail.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUrl;
@@ -20,17 +19,30 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return GestureDetector(
+      onTap: () {
+        // Pass item details to the Detail page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Detail(
+              imageUrl: imageUrl,
+              title: title,
+              subtitle: subtitle,
+              price: price,
+              rating: rating,
+            ),
+          ),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image with rating
+            // Image and rating
             Stack(
               children: [
                 ClipRRect(
@@ -46,29 +58,21 @@ class ProductCard extends StatelessWidget {
                   top: 8,
                   right: 8,
                   child: Container(
-                    width: 51,
-                    height: 25,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(0.5),
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(16),
-                      ),
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xfffFBBE21),
-                        ),
+                        const Icon(Icons.star, size: 16, color: Colors.yellow),
                         const SizedBox(width: 4),
                         Text(
                           rating.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
@@ -76,50 +80,56 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            // Product Title
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            // Title and subtitle
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                  Text(subtitle, style: const TextStyle(color: Colors.grey)),
+                  const SizedBox(height: 8),
+                  // Price and button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        price,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Pass item details to the Detail page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Detail(
+                                imageUrl: imageUrl,
+                                title: title,
+                                subtitle: subtitle,
+                                price: price,
+                                rating: rating,
+                              ),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color(0xffC67C4E), // Set background color
+                            foregroundColor:
+                                Colors.white, // Set text/icon color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  30), // Set round corners
+                            )),
+                        child: const Icon(Icons.add),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            // Subtitle
-            Text(
-              subtitle,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 8),
-            // Price and Add Button Row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffC67C4E),
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(12),
-                  ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

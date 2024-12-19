@@ -4,7 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
 class Detail extends StatefulWidget {
-  const Detail({super.key});
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final String price;
+  final double rating;
+
+  const Detail({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+    required this.price,
+    required this.rating,
+  });
 
   @override
   State<Detail> createState() => _DetailState();
@@ -49,7 +62,12 @@ class _DetailState extends State<Detail> {
                     width: size.width * 0.095,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      const Icon(
+                        Iconsax.heart,
+                        color: Color.fromARGB(255, 223, 6, 6),
+                      );
+                    },
                     icon: const Icon(
                       Iconsax.heart,
                       color: Color(0xff2F2D2C),
@@ -61,14 +79,16 @@ class _DetailState extends State<Detail> {
             SizedBox(
               height: size.height * 0.030,
             ),
+            // Dynamic Image
             Container(
               width: 315,
               height: 226,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
-                  image: AssetImage("assets/item.png"),
+                image: DecorationImage(
+                  image: NetworkImage(widget.imageUrl),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -81,8 +101,9 @@ class _DetailState extends State<Detail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // Dynamic Title
                   Text(
-                    "Cafe Mocha",
+                    widget.title,
                     style: GoogleFonts.sora(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -91,8 +112,9 @@ class _DetailState extends State<Detail> {
                   const SizedBox(
                     height: 8,
                   ),
+                  // Dynamic Subtitle
                   Text(
-                    "Ice/Hot",
+                    widget.subtitle,
                     style: GoogleFonts.sora(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -119,8 +141,9 @@ class _DetailState extends State<Detail> {
                           color: Color(0xffFBBE21),
                         ),
                       ),
+                      // Dynamic Rating
                       Text(
-                        "4.8",
+                        widget.rating.toString(),
                         style: GoogleFonts.sora(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -243,64 +266,9 @@ class _DetailState extends State<Detail> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            width: 96,
-                            height: 43,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xffffff),
-                              border: Border.all(
-                                color: Color(0xffDEDEDE),
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              "S",
-                              style: GoogleFonts.sora(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
-                            ),
-                          ),
-                          Container(
-                            width: 96,
-                            height: 43,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xffFFF5EE),
-                              border: Border.all(
-                                color: Color(0xffC67C4E),
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              "M",
-                              style: GoogleFonts.sora(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xffC67C4E),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 96,
-                            height: 43,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xffffff),
-                              border: Border.all(
-                                color: Color(0xffDEDEDE),
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              "L",
-                              style: GoogleFonts.sora(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
-                            ),
-                          ),
+                          _buildSizeOption("S", 0),
+                          _buildSizeOption("M", 1),
+                          _buildSizeOption("L", 2),
                         ],
                       ),
                     ],
@@ -337,8 +305,9 @@ class _DetailState extends State<Detail> {
                                 fontWeight: FontWeight.w400,
                                 color: const Color(0xff9B9B9B)),
                           ),
+                          // Dynamic Price
                           Text(
-                            "\$ 4.53",
+                            widget.price,
                             style: GoogleFonts.sora(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -353,7 +322,13 @@ class _DetailState extends State<Detail> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Order()),
+                              MaterialPageRoute(
+                                  builder: (context) => Order(
+                                        imageUrl: widget.imageUrl,
+                                        title: widget.title,
+                                        subtitle: widget.subtitle,
+                                        price: widget.price,
+                                      )),
                             );
                           },
                           style: TextButton.styleFrom(
@@ -381,6 +356,39 @@ class _DetailState extends State<Detail> {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSizeOption(String size, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedSize = index;
+        });
+      },
+      child: Container(
+        width: 96,
+        height: 43,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: selectedSize == index ? const Color(0xffFFF5EE) : Colors.white,
+          border: Border.all(
+            color: selectedSize == index
+                ? const Color(0xffC67C4E)
+                : const Color(0xffDEDEDE),
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          size,
+          style: GoogleFonts.sora(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color:
+                selectedSize == index ? const Color(0xffC67C4E) : Colors.black,
+          ),
         ),
       ),
     );

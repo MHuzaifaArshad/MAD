@@ -15,8 +15,6 @@ class _Nav_barState extends State<Nav_bar> {
 
   final List<Widget> _pages = const [
     Home(),
-    Order(),
-    Detail(),
     Delivery(),
   ];
 
@@ -39,10 +37,6 @@ class _Nav_barState extends State<Nav_bar> {
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.home), label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.cart), label: "Orders"),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.info), label: "Details"),
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.location), label: "Delivery"),
           ],
