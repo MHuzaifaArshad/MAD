@@ -1,4 +1,5 @@
 Project Overview
+
 Introduction:
 The Coffee Shop App is a user-friendly mobile application designed to simplify the process of ordering coffee. It provides a seamless experience with intuitive navigation across four core screens: Splash Screen, Home Page, Item Details, and Order Screen. The app enables users to explore a variety of coffee options, review details for each item, and place orders efficiently. This project aims to enhance user convenience and improve the overall customer experience.
 
@@ -81,3 +82,9 @@ Pages Folder: Contains all the screen-specific files (e.g., SplashScreen, HomePa
 
 Utilities Folder: Contains reusable widgets and helper functions to maintain a clean and consistent codebase.
 
+Mockup:
+
+![45235](https://github.com/user-attachments/assets/1d08a337-e246-4147-9a09-435110389cb2)
+
+Viddeo:
+https://www.loom.com/share/81bdfb590c3148bb89e4d158a1b3a9ef?sid=870b3c39-ef96-4af4-ba7c-f7b31ffe4eae
