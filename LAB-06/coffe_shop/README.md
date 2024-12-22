@@ -84,7 +84,8 @@ Utilities Folder: Contains reusable widgets and helper functions to maintain a c
 
 Mockup:
 
-![45235](https://github.com/user-attachments/assets/1d08a337-e246-4147-9a09-435110389cb2)
+![45235](https://github.com/user-attachments/assets/c1d86808-b3a3-4b16-8e02-d2426fc1dcb2)
+
 
 Viddeo:
 https://www.loom.com/share/81bdfb590c3148bb89e4d158a1b3a9ef?sid=870b3c39-ef96-4af4-ba7c-f7b31ffe4eae
